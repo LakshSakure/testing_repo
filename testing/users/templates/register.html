@@ -2,9 +2,89 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <title>User Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
+<form method="POST" class="post-form" >
+        {% csrf_token %}
+    <div class="container">
+<br>
+    <div class="form-group row">
+    <label class="col-sm-1 col-form-label"></label>
+    <div class="col-sm-4">
+    <h3>Enter Details</h3>
+    </div>
+  </div>
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label">First Name</label>
+    <div class="col-sm-4">
+      {{ form.first_name }}
+    </div>
+  </div>
 
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Middle Name</label>
+    <div class="col-sm-4">
+      {{ form.middle_name }}
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Last Name</label>
+    <div class="col-sm-4">
+      {{ form.last_name }}
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">:</label>
+    <div class="col-sm-4">
+      {{ form.ename }}
+    </div>
+  </div>
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Email Id:</label>
+    <div class="col-sm-4">
+      {{ form.email_id }}
+    </div>
+  </div>
+
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Mobile Number:</label>
+    <div class="col-sm-4">
+      {{ form.mobile_number }}
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Address:</label>
+    <div class="col-sm-4">
+      {{ form.address }}
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">City:</label>
+    <div class="col-sm-4">
+      {{ form.city }}
+    </div>
+  </div>
+
+
+
+    <div class="form-group row">
+    <label class="col-sm-1 col-form-label"></label>
+    <div class="col-sm-4">
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+    </div>
+</form>
 </body>
 </html>
