@@ -10,7 +10,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<form method="POST" class="post-form" >
+<form method="POST" class="post-form"  enctype = "multipart/form-data"  >
         {% csrf_token %}
     <div class="container">
 <br>
@@ -24,6 +24,7 @@
     <label class="col-sm-2 col-form-label">First Name</label>
     <div class="col-sm-4">
       {{ form.first_name }}
+      <div class="text-danger"> {{ form.errors.first_name }} </div>
     </div>
   </div>
 
@@ -31,6 +32,7 @@
     <label class="col-sm-2 col-form-label">Middle Name</label>
     <div class="col-sm-4">
       {{ form.middle_name }}
+      <div class="text-danger"> {{ form.errors.middle_name }} </div>
     </div>
   </div>
 
@@ -38,6 +40,7 @@
     <label class="col-sm-2 col-form-label">Last Name</label>
     <div class="col-sm-4">
       {{ form.last_name }}
+      <div class="text-danger"> {{ form.errors.last_name }} </div>
     </div>
   </div>
 
@@ -46,12 +49,14 @@
     <label class="col-sm-2 col-form-label">:</label>
     <div class="col-sm-4">
       {{ form.ename }}
+      <div class="text-danger"> {{ form.errors.ename }} </div>
     </div>
   </div>
     <div class="form-group row">
     <label class="col-sm-2 col-form-label">Email Id:</label>
     <div class="col-sm-4">
       {{ form.email_id }}
+      <div class="text-danger"> {{ form.errors.email_id }} </div>
     </div>
   </div>
 
@@ -59,6 +64,7 @@
     <label class="col-sm-2 col-form-label">Mobile Number:</label>
     <div class="col-sm-4">
       {{ form.mobile_number }}
+      <div class="text-danger"> {{ form.errors.mobile_number }} </div>
     </div>
   </div>
 
@@ -66,6 +72,7 @@
     <label class="col-sm-2 col-form-label">Address:</label>
     <div class="col-sm-4">
       {{ form.address }}
+      <div class="text-danger"> {{ form.errors.address }} </div>
     </div>
   </div>
 
@@ -73,18 +80,27 @@
     <label class="col-sm-2 col-form-label">City:</label>
     <div class="col-sm-4">
       {{ form.city }}
+      <div class="text-danger"> {{ form.errors.city }} </div>
     </div>
   </div>
 
-      <div class="form-group row">
-    <label class="col-sm-2 col-form-label">City:</label>
+   <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Gender:</label>
     <div class="col-sm-4">
       {{ form.gender }}
+        <div class="text-danger"> {{ form.errors.gender }} </div>
     </div>
   </div>
 
+   <div class="form-group row">
+    <label class="col-sm-2 col-form-label">City:</label>
+    <div class="col-sm-4">
+      {{ form.profile_pic }}
+        <div class="text-danger"> {{ form.errors.profile_pic }} </div>
+    </div>
+  </div>
 
-    <div class="form-group row">
+  <div class="form-group row">
     <label class="col-sm-1 col-form-label"></label>
     <div class="col-sm-4">
     <button type="submit" class="btn btn-primary">Submit</button>

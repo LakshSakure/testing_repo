@@ -1,6 +1,5 @@
 from django.db import models
 from datetime import datetime
-
 # Create your models here.
 class Users(models.Model):
     gen = (
@@ -8,6 +7,7 @@ class Users(models.Model):
         (2, 'Female'),
         (3, 'Other'),
     )
+
     first_name = models.CharField(max_length=50)
     middle_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -16,8 +16,9 @@ class Users(models.Model):
     address = models.TextField()
     city = models.CharField(max_length=50)
     add_date = models.DateTimeField(default=datetime.now())
-    gender  = models.IntegerField(choices=gen, default=1)
+    gender = models.IntegerField(choices=gen, default=1)
     i_time = models.DateTimeField(auto_now_add=True, auto_now=False)
+    profile_pic = models.FileField(null=True)
 
 
     def __str__(self):
