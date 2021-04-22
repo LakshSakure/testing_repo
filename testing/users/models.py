@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+# from upload_validator import FileTypeValidator
 # Create your models here.
 class Users(models.Model):
     gen = (
@@ -18,8 +19,7 @@ class Users(models.Model):
     add_date = models.DateTimeField(default=datetime.now())
     gender = models.IntegerField(choices=gen, default=1)
     i_time = models.DateTimeField(auto_now_add=True, auto_now=False)
-    profile_pic = models.FileField(null=True)
-
+    profile_pic = models.FileField(null=True, upload_to="pictures/")
 
     def __str__(self):
         return self.first_name + " " + self.last_name
