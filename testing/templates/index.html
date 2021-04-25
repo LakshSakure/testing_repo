@@ -8,6 +8,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
 </head>
 <body>
 
@@ -51,5 +53,67 @@
   </div>
 </nav>
 
+<input type="text" class="form-control form-control-sm float-right d-block" style="width:200px;" id="users_tbl_fill" name="daterange" value="2021/03/22 - 2021/04/22">
+<div class="table-responsive">
+     <table class="table table-striped table-bordered table-hover dataTables-example all_tables" id="users_tbl" style="width: 100%">
+        <thead>
+        <tr>
+            <th>Sr. No.</th>
+            <th>Added ON</th>
+            <th>Customer ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile Number</th>
+            <th>Adderess</th>
+            <th>City</th>
+            <th>Profile PIc</th>
+            <th>Gender</th>
+            <th style="min-width: 100px;" >Action</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+</div>
+
+
+<script>
+var token = '{{csrf_token}}';
+    $(document).ready(function(){
+    var  enq_tbl =   $('#users_tbl').DataTable({
+        "processing": true,
+        dom: '<"html5buttons"B>lTfgitp',
+                "order": [[ 1, "desc" ]],
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel', title: 'ExampleFile'},
+                    {extend: 'pdf', title: 'ExampleFile'},
+                    {extend: 'print',
+                     customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ],
+            "ajax": {
+            url:'/users/user-list',
+            headers: { "X-CSRFToken": token },
+            type: "POST",
+                  data: {
+            range : function() { return $('#users_tbl_fill').val() }
+        }
+        },
+
+        "order": [[ 0, "asc" ]]
+    });
+    });
+</script>
 </body>
 </html>
