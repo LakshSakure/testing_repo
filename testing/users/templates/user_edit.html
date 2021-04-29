@@ -1,0 +1,46 @@
+
+{% csrf_token %}
+    {{ form }}
+<input type="hidden" value="{{ id }}" name="id" />
+
+<script>
+
+$(function() {
+    $("#update_user_form").validate({
+    rules: {
+    first_name : { required: true,
+        },
+    },
+    messages: {
+    },
+     submitHandler: function(form) {
+        // form.submit();
+        update_user();
+    }
+    });
+});
+
+function update_user()
+ {
+    var addUserForm = new FormData($(".update_user_form")[0]);
+    $.ajax({
+        type: "POST",
+        url: 'users/update_user',
+        data: addUserForm,
+        processData: false,
+        dataType: 'json',
+        contentType: false,
+        cache: false,
+        success:function(res){
+            if(res.error == 0){
+                $('#users_tbl').DataTable().ajax.reload();
+                $('#edit_user_modal').modal('hide');
+                 alert(res.msg);
+            }
+            else {
+                 alert(res.msg);
+            }
+        }
+    });
+ }
+</script>

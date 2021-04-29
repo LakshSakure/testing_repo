@@ -10,6 +10,14 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<style>
+    .error {
+     color: red;
+     display: block;
+    }
+
+</style>
 </head>
 <body>
 
@@ -78,6 +86,27 @@
 
 </div>
 
+<div class="modal" tabindex="-1" role="dialog" id="edit_user_modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal_title">Edit User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <form id="form_name" method="post" enctype="multipart/form-data">
+          <div class="modal-body" id="edituser_body">
+
+          </div>
+        </form>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" id="form_btn">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 var token = '{{csrf_token}}';
@@ -114,6 +143,27 @@ var token = '{{csrf_token}}';
         "order": [[ 0, "asc" ]]
     });
     });
+
+   function openEdit(id, title="Details", frm_name)
+   {
+        $.ajax({
+            url: 'users/edit_view',
+            dataType: 'html',
+            method: 'POST',
+            headers: { "X-CSRFToken": token },
+            data: {id: id},
+            success: (res) => {
+              $('#edituser_body').html(res);
+              $('#modal_title').html(title);
+              $('#form_name').attr({'id':frm_name, 'class': frm_name});
+              $('#form_btn').attr('form', frm_name);
+              $('#edit_user_modal').modal('show');
+            }
+        });
+   }
+
+
 </script>
+
 </body>
 </html>
