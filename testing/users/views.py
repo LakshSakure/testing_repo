@@ -4,6 +4,7 @@ from users.forms.login_form import LoginFrom
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from users.models import Users
+from django.utils import formats
 import os
 
 def register(request):
@@ -34,9 +35,9 @@ def userList(request):
         elif value.gender == 2: gen = "Female"
         # title = "Edit User"+value.first_name+" "+value.last_name
         edit = "<a onclick='openEdit("+str(value.id)+", ` Edit User: "+value.first_name+" "+value.last_name+"`, `update_user_form` )' ><i class='btn btn-secondary btn-hover btn-sm fa fa-edit' > Edit</i></a>"
-
+        delete = "<a onclick='openDelete("+str(value.id)+")' ><i class='btn btn-danger btn-hover btn-sm m-2 fa fa-trash' > Delete</i></a>"
         profile_pic =""
-        data.append([i, value.add_date, value.id, value.first_name+" "+ value.last_name, value.email_id, value.mobile_number, value.address, value.city, profile_pic, gen, edit])
+        data.append([i, formats.date_format(value.add_date, "SHORT_DATETIME_FORMAT"), value.id, value.first_name+" "+ value.last_name, value.email_id, value.mobile_number, value.address, value.city, profile_pic, gen, edit+""+delete])
 
     return JsonResponse({"data": data}, status=200)
     # return HttpResponse(json_data, content_type="application/json")
@@ -53,9 +54,22 @@ def updateUser(request):
     if request.method == "POST":
         id = request.POST.get('id')
         instance = get_object_or_404(Users, id=id)
-        form = UserForm(request.POST or None,request.FILES, instance=instance)
+        form = UserForm(request.POST or None, request.FILES, instance=instance)
         if form.is_valid():
             form.save()
             return JsonResponse({'error': 0, 'msg': 'updated Successfully'}, status=200)
         else:
             return JsonResponse({'error': 1, 'msg': 'Something going wrong'}, status=200)
+
+def deleteUser(request):
+    if request.method == "POST":
+        id = request.POST.get('id')
+        if Users.objects.filter(id=id).delete():
+            return JsonResponse({'error': 0, 'msg': 'User Deleted Successfully'}, status=200)
+        else:
+            return JsonResponse({'error': 1, 'msg': 'Something going wrong'}, status=200)
+
+def delete_file(path):
+   """ Deletes file from filesystem. """
+   if os.path.isfile(path):
+       os.remove(path)

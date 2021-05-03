@@ -162,6 +162,27 @@ var token = '{{csrf_token}}';
         });
    }
 
+function openDelete(id)
+{
+    var ack = confirm("Are you sure to delete this customer");
+    if(ack)
+    {
+        $.ajax({
+            url: 'users/delete_user',
+            dataType: 'html',
+            method: 'POST',
+            headers: { "X-CSRFToken": token },
+            data: {id: id},
+            success: (res) => {
+              $('#edituser_body').html(res);
+              $('#modal_title').html(title);
+              $('#form_name').attr({'id':frm_name, 'class': frm_name});
+              $('#form_btn').attr('form', frm_name);
+              $('#edit_user_modal').modal('show');
+            }
+        });
+    }
+}
 
 </script>
 
